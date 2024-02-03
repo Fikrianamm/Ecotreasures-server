@@ -1,3 +1,20 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap');
+
+.title-app{
+    font-family: 'Bree Serif';
+    color: aliceblue;
+}
+.bgs{
+    background-color: black;
+    background-image: url(https://i.imgur.com/98HqLpe.jpg);
+    background-position: center;
+    background-size: contain;
+}
+
+li{
+    cursor: pointer;
+}
