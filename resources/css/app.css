@@ -1,3 +1,18 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap');
+
+h1, p{
+    cursor: default;
+}
+
+.hov-b:hover{
+    filter: brightness(80%);
+    transition: all 0.3s;
+}
+
+li{
+    cursor: pointer;
+}
