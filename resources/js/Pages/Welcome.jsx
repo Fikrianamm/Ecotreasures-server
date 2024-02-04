@@ -12,9 +12,10 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
             
             {/* Content */}
 
+            <Navigation />
             <header className='h-[445px] bg-[url(https://i.imgur.com/98HqLpe.jpg)] w-full bg-top bg-cover'>
             <div className="blur-background h-[445px] backdrop-blur-sm w-full bg-slate-900 bg-opacity-25">
-                <Navigation />
+                <div className='pt-5 pb-5 pr-10 pl-10 flex w-full'></div>
                 <article className=' m-10 me-32 ml-32 flex flex-col justify-center items-center space-y-4'>
                     <h1 className='font-breeSerif text-gray-50 text-2xl'>EcoTreasures</h1>
                     <p className='text-wrap text-lg text-gray-50 text-center'>Tempat di mana sampah Anda dapat menjadi nilai baru. 
