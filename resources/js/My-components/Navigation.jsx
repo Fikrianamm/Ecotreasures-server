@@ -25,7 +25,7 @@ export const Navigation = ({type}) => {
     return(
     <nav id='nav-main' className={`pt-5 pb-5 pr-10 pl-10 fixed flex w-full z-20 bg-white`}>
       <div className='flex-1'>
-        <EcoTreasures type={`1`} />
+        <EcoTreasures type="1" />
       </div>
       <div className='flex-2'>
           <ul className={`flex space-x-4 text-slate-800 items-center`}>
