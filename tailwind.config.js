@@ -14,6 +14,7 @@ export default {
         extend: {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                breeSerif: ["Bree Serif", "system-ui", "sans-serif"],
             },
         },
     },

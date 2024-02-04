@@ -4,15 +4,13 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap');
 
-.title-app{
-    font-family: 'Bree Serif';
-    color: aliceblue;
+h1, p{
+    cursor: default;
 }
-.bgs{
-    background-color: black;
-    background-image: url(https://i.imgur.com/98HqLpe.jpg);
-    background-position: center;
-    background-size: contain;
+
+.hov-b:hover{
+    filter: brightness(80%);
+    transition: all 0.3s;
 }
 
 li{

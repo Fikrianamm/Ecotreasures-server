@@ -20,7 +20,7 @@
         @vite(['resources/css/app.css'])
         @inertiaHead
     </head>
-    <body class="font-sans antialiased">
+    <body class="font-sans antialiased scroll-smooth">
         @inertia
     </body>
 </html>
