@@ -7,16 +7,18 @@
         <title inertia>{{ config('app.name', 'Laravel') }}</title>
 
         <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css">
+        <style>
+             @import url('https://fonts.googleapis.com/css2?family=Bree+Serif&family=Red+Hat+Display:wght@400;500;600;700&family=Red+Hat+Text:wght@300;400;500;600;700&display=swap');
+        </style>
         <!-- Scripts -->
         @routes
         @viteReactRefresh
         @vite(['resources/js/app.jsx', "resources/js/Pages/{$page['component']}.jsx"])
+        @vite(['resources/css/app.css'])
         @inertiaHead
     </head>
-    <body class="font-sans antialiased">
+    <body class="antialiased ">
         @inertia
     </body>
 </html>

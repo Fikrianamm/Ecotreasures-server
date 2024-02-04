@@ -1,3 +1,28 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    html {
+        font-family: "Red Hat Text";
+        scroll-behavior: smooth;
+    }
+}
+
+h1,
+p {
+    cursor: default;
+}
+
+.hov-b:hover {
+    filter: brightness(80%);
+    transition: all 0.3s;
+}
+
+li {
+    cursor: pointer;
+}
+
+.hero-img {
+    background-image: url(https://i.imgur.com/98HqLpe.jpg);
+}
