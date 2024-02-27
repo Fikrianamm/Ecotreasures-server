@@ -8,14 +8,22 @@ class UserController extends Controller
 {
     //
     public function register(Request $request){
-        $validateData = $request->validate([
+        $validatedData = $request->validate([
             'name' => 'required|min:3|max:100',
-            'email' => 'required|email:dns|min:5|max:100',
+            'email' => 'required|email:dns|unique:users|min:5|max:100',
             'password' => 'required|min:5|max:20'
-        ]);
+        ]);        
 
+        if(User::where('email', $validatedData->email)->exist()){
+            return response()->json([
+                "message" => "Email already exist"
+            ], 409);
+        }
+
+        User::create($validatedData);
+        
         return response()->json([
-            'data' => $request
-        ]);
+            'message' => 'Sucessfully Registered',            
+        ], 201);
     }
 }
