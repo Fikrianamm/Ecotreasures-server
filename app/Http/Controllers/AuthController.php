@@ -25,7 +25,7 @@ class AuthController extends Controller
         $cookie = cookie('data', $response, $response->original['expires_in']);
 
         return response()->json([
-            'success' => 'true',
+            'success' => true,
             'message' => 'logged in'
         ], 201)->withCookie($cookie);
     }
