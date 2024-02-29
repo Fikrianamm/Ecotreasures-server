@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 
 class AuthController extends Controller
 {
@@ -20,7 +21,13 @@ class AuthController extends Controller
             return response()->json(['message' => 'Unauthorized'], 401);
         }
 
-        return $this->respondWithToken($token);
+        $response = $this->respondWithToken($token);        
+        $cookie = cookie('data', $response, $response->original['expires_in']);
+
+        return response()->json([
+            'success' => 'true',
+            'message' => 'logged in'
+        ], 201)->withCookie($cookie);
     }
 
     // get authenticated user
