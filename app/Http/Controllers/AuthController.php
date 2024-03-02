@@ -18,7 +18,7 @@ class AuthController extends Controller
         $credentials = request(['email', 'password']);
 
         if(!$token = auth()->attempt($credentials)){
-            return response()->json(['message' => 'Unauthorized'], 401);
+            return response()->json(['success' => false, 'message' => 'Unauthorized'], 401);
         }
 
         $response = $this->respondWithToken($token);        
@@ -31,14 +31,14 @@ class AuthController extends Controller
     }
 
     // get authenticated user
-    public function me(){
+    public function me(){        
         return response()->json(auth()->user());
     }
 
     // logout (invalidate user)
     public function logout(){
         auth()->logout();
-        return response()->json(['message' => 'Successfully logged out']);
+        return response()->json(['success' => true, 'message' => 'Successfully logged out']);
     }
 
     // refresh a token
