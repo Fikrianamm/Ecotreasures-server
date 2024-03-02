@@ -35,7 +35,7 @@ class WishlistController extends Controller
                 'success' => true,
                 'message' => 'Data found',
                 'data' => [
-                    'id' => $item->id,
+                    'wishlist_id' => $item->id,
                     'product' => $item->product
                 ],
             ];
@@ -46,7 +46,7 @@ class WishlistController extends Controller
     
     public function delete(Wishlist $wishlist){
         $user = auth()->user();
-        Wishlist::destroy($wishlist);
+        Wishlist::destroy($wishlist->id);
 
         return response()->json([
             'success' => true,

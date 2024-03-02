@@ -40,7 +40,7 @@ Route::group(['middleware' => 'api', 'prefix' => 'auth'], function($router){
 Route::group(['middleware' => 'api', 'prefix' => 'wishlists'], function(){
     Route::post('/add/{product}', [WishlistController::class, 'add']);
     Route::get('/show', [WishlistController::class, 'show']);
-    Route::delete('/delete/{product}', [WishlistController::class, 'delete']);
+    Route::delete('/delete/{wishlist}', [WishlistController::class, 'delete']);
 });
 
 // Product router
