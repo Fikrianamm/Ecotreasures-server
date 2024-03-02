@@ -11,7 +11,7 @@ class UserController extends Controller
     public function __construct(){
         $this->middleware('auth:api', ['except' => ['register']]);
     }
-    
+
     public function register(Request $request){
         $validatedData = $request->validate([
             'name' => 'required',
@@ -31,6 +31,7 @@ class UserController extends Controller
         
         return response()->json([
             'message' => 'Sucessfully Registered',
+            'success' => true,
             'data' => [
                 'name' => $validatedData['name'],
                 'email' => $validatedData['email'],

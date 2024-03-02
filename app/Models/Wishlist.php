@@ -3,11 +3,11 @@
 namespace App\Models;
 
 use App\Models\User;
-use App\Models\Products;
+use App\Models\Product;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Wishlists extends Model
+class Wishlist extends Model
 {
     use HasFactory;
 
@@ -16,6 +16,6 @@ class Wishlists extends Model
     }
 
     public function product(){
-        return $this->belongsTo(Products::class,'product_id','id');
+        return $this->belongsTo(Product::class,'product_id','id');
     }
 }

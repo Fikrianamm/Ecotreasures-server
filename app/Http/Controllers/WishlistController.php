@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Products;
-use App\Models\Wishlists;
+use App\Models\Product;
+use App\Models\Wishlist;
 use Illuminate\Http\Request;
 
 class WishlistController extends Controller
@@ -13,9 +13,9 @@ class WishlistController extends Controller
         $this->middleware('auth:api');
     }
     
-    public function add(Products $product){
+    public function add(Product $product){
         $user = auth()->user();
-        Wishlists::create([
+        Wishlist::create([
             'product_id' => $product->id,
             'user_id' => $user->id
         ]);
@@ -44,7 +44,7 @@ class WishlistController extends Controller
         return response()->json($data, 201);
     }
     
-    public function delete(Wishlists $wishlist){
+    public function delete(Wishlist $wishlist){
         $user = auth()->user();
         Wishlist::destroy($wishlist);
 

@@ -37,7 +37,7 @@ Route::group(['middleware' => 'api', 'prefix' => 'auth'], function($router){
 });
 
 // Wishlist router
-Route::group(['middleware' => 'api', 'prefix' => 'wishlist'], function(){
+Route::group(['middleware' => 'api', 'prefix' => 'wishlists'], function(){
     Route::post('/add/{product}', [WishlistController::class, 'add']);
     Route::get('/show', [WishlistController::class, 'show']);
     Route::delete('/delete/{product}', [WishlistController::class, 'delete']);

@@ -4,7 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\Products;
-use App\Models\Wishlists;
+use App\Models\Wishlist;
 use Laravel\Sanctum\HasApiTokens;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
@@ -67,7 +67,7 @@ class User extends Authenticatable implements JWTSubject
 
     // Relationship
     public function wishlist(){
-        return $this->hasMany(Wishlists::class);
+        return $this->hasMany(Wishlist::class);
     }
 
     public function product(){

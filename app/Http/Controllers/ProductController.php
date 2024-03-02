@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Products;
+use Exception;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -21,23 +22,34 @@ class ProductController extends Controller
             'detail' => 'required'
         ]);
 
-        Products::create([
-            'user_id' => getuser()->id,
-            'title' => $validatedData['title'],
-            'image' => $validatedData['image'],
-            'price' => $validatedData['price'],
-            'stock' => $validatedData['stock'],
-            'detail' => $validatedData['detail'],
-        ]);
+        $priceInt = intval($validatedData['price']);
+        $stockInt = intval($validatedData['stock']);
 
-        return response()->json([
-            'success' => true,
-            'message' =>  'Product created successfully.'
-        ], 201);
+        try{
+            Product::create([
+                'user_id' => auth()->user()->id,
+                'title' => $validatedData['title'],
+                'image' => $validatedData['image'],
+                'price' => $priceInt,
+                'stock' => $stockInt,
+                'detail' => $validatedData['detail'],
+            ]);                    
+    
+            return response()->json([
+                'success' => true,
+                'message' =>  'Product created successfully.'
+            ], 201);
+        }catch(Exception $e){
+            return response()->json([
+                "success" => false,
+                "Error" => $e
+            ]);
+        }
+
     }
 
     public function getsellerdata(){
-        $wishlists = Products::where('user_id', auth()->user()->id)->get();
+        $wishlists = Product::where('user_id', auth()->user()->id)->get();
         $data = $wishlists->map(function($item){
             return [
                 'success' => true,
@@ -53,10 +65,10 @@ class ProductController extends Controller
             ];
         });
 
-        return response()->json($data, 201);
+        return response()->json($data, 200);
     }
 
-    public function update(Request $request, Products $product){        
+    public function update(Request $request, Product $product){        
         $validatedData = $request->validate([
             'title' => 'required',
             'image' => 'required',
@@ -65,7 +77,7 @@ class ProductController extends Controller
             'detail' => 'required'
         ]);
 
-        Products::where('id', $product->id)->update([            
+        Product::where('id', $product->id)->update([            
             'title' => $validatedData['title'],
             'image' => $validatedData['image'],
             'price' => $validatedData['price'],
@@ -79,8 +91,8 @@ class ProductController extends Controller
         ], 201);
     }
 
-    public function delete(Products $product){
-        Products::destroy($product);
+    public function delete(Product $product){
+        Product::destroy($product->id);
         return response()->json([
             'success' => true,
             'message' => 'Delete Successfully!',
@@ -88,7 +100,7 @@ class ProductController extends Controller
     }
 
     public function getalldata(){
-        $products = Products::all();
+        $products = Product::all();
         $data = $products->map(function($item){
             return [
                 'success' => true,
@@ -104,6 +116,6 @@ class ProductController extends Controller
             ];
         });
 
-        return response()->json($data, 201);
+        return response()->json($data, 200);
     }
 }
