@@ -44,9 +44,13 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required',
             'password' => 'required'
+        ]);            
+
+        User::where('id', $user->id)->update([
+            'name' => $validatedData['name'],
+            'email' => $validatedData['email'],
+            'password' => bcrypt($validatedData['password'])
         ]);
-        
-        User::where('id', $user->id)->update($validatedData);
 
         return response()->json([
             'success' => true,

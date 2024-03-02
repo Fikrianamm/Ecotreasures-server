@@ -32,8 +32,8 @@ Route::group(['middleware' => 'api', 'prefix' => 'user'], function(){
 Route::group(['middleware' => 'api', 'prefix' => 'auth'], function($router){
     Route::post('/login', [AuthController::class, 'login']);
     Route::post('/logout', [AuthController::class, 'logout']);
-    Route::post('/refresh', [AuthController::class, 'refresh']);
-    Route::post('/me', [AuthController::class, 'me']);
+    Route::get('/refresh', [AuthController::class, 'refresh']);
+    Route::get('/me', [AuthController::class, 'me']);    
 });
 
 // Wishlist router
@@ -46,7 +46,7 @@ Route::group(['middleware' => 'api', 'prefix' => 'wishlists'], function(){
 // Product router
 Route::group(['middleware' => 'api','prefix' => 'products'], function (){
     Route::post('/create', [ProductController::class, 'create']);
-    Route::put('/update/{product}', [ProductController::class, 'update']);
+    Route::post('/update/{product}', [ProductController::class, 'update']);
     Route::get('/seller', [ProductController::class, 'getsellerdata']);
     Route::delete('/delete/{product}', [ProductController::class, 'delete']);
     Route::get('/data', [ProductController::class, 'getalldata']);

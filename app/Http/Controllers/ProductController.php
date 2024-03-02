@@ -75,7 +75,7 @@ class ProductController extends Controller
             'price' => 'required',
             'stock' => 'required',
             'detail' => 'required'
-        ]);
+        ]);        
 
         Product::where('id', $product->id)->update([            
             'title' => $validatedData['title'],
