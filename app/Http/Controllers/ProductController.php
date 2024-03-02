@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Products;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
     //
-    protected function getuser(){
-        $user = auth()->user();
-        return $user;
+    public function __construct(){
+        $this->middleware('auth:api', ['except' => ['getalldata']]);
     }
 
     public function create(Request $request){        
@@ -37,7 +37,7 @@ class ProductController extends Controller
     }
 
     public function getsellerdata(){
-        $wishlists = Products::where('user_id', getuser()->id)->get();
+        $wishlists = Products::where('user_id', auth()->user()->id)->get();
         $data = $wishlists->map(function($item){
             return [
                 'success' => true,

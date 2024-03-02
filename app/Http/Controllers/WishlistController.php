@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Products;
+use App\Models\Wishlists;
 use Illuminate\Http\Request;
 
 class WishlistController extends Controller

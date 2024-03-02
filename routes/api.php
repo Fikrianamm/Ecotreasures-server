@@ -25,8 +25,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // User Router
 Route::group(['middleware' => 'api', 'prefix' => 'user'], function(){
     Route::post('/update/{user}', [UserController::class, 'update']);
+    Route::post('/register', [UserController::class, 'register']);
 });
-Route::post('/register', [UserController::class, 'register']);
 
 // Auth router
 Route::group(['middleware' => 'api', 'prefix' => 'auth'], function($router){
@@ -49,5 +49,5 @@ Route::group(['middleware' => 'api','prefix' => 'products'], function (){
     Route::put('/update/{product}', [ProductController::class, 'update']);
     Route::get('/seller', [ProductController::class, 'getsellerdata']);
     Route::delete('/delete/{product}', [ProductController::class, 'delete']);
+    Route::get('/data', [ProductController::class, 'getalldata']);
 });
-Route::get('/data', [ProductController::class, 'getalldata']);

@@ -8,6 +8,10 @@ use App\Models\User;
 class UserController extends Controller
 {
     //
+    public function __construct(){
+        $this->middleware('auth:api', ['except' => ['register']]);
+    }
+    
     public function register(Request $request){
         $validatedData = $request->validate([
             'name' => 'required',
