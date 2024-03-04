@@ -14,43 +14,78 @@ class WishlistController extends Controller
     }
     
     public function add(Product $product){
-        $user = auth()->user();
-        Wishlist::create([
-            'product_id' => $product->id,
-            'user_id' => $user->id
-        ]);
+        try{
+            $user = auth()->user();
+            Wishlist::create([
+                'product_id' => $product->id,
+                'user_id' => $user->id
+            ]);
+    
+            return response()->json([
+                'success' => true,
+                'message' => "Product added to wishlist",            
+            ], 201);
 
-        return response()->json([
-            'success' => true,
-            'message' => "Product added to wishlist",            
-        ], 201);
+        }catch(Exception $e){
+            return response()->json([
+                "success" => false,
+                "message" => "Something Error",
+                "errors" => [
+                    'error' => $e->getMessage()
+                ]
+            ]);
+        }
     }
 
     public function show(){
-        $user = auth()->user();
+        try{
+            $user = auth()->user();
+    
+            $wishlists = Wishlist::where('user_id', $user->id)->get();
+            $data = $wishlists->map(function($item){
+                return [
+                    'success' => true,
+                    'message' => 'Data found',
+                    'data' => [
+                        'wishlist' => [
+                            'wishlist_id' => $item->id,
+                            'product' => $item->product
+                        ],
+                    ],
+                ];
+            });
+    
+            return response()->json($data, 200);
 
-        $wishlists = Wishlist::where('user_id', $user->id)->get();
-        $data = $wishlists->map(function($item){
-            return [
-                'success' => true,
-                'message' => 'Data found',
-                'data' => [
-                    'wishlist_id' => $item->id,
-                    'product' => $item->product
-                ],
-            ];
-        });
-
-        return response()->json($data, 201);
+        }catch(Exception $e){
+            return response()->json([
+                "success" => false,
+                "message" => "Something Error",
+                "errors" => [
+                    'error' => $e->getMessage()
+                ]
+            ]);
+        }
     }
     
     public function delete(Wishlist $wishlist){
-        $user = auth()->user();
-        Wishlist::destroy($wishlist->id);
+        try{
+            $user = auth()->user();
+            Wishlist::destroy($wishlist->id);
+    
+            return response()->json([
+                'success' => true,
+                'message' => 'Item deleted from wishlist'
+            ], 200);
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Item deleted from wishlist'
-        ], 201);
+        }catch(Exception $e){
+            return response()->json([
+                "success" => false,
+                "message" => "Something Error",
+                "errors" => [
+                    'error' => $e->getMessage()
+                ]
+            ]);
+        }
     }
 }

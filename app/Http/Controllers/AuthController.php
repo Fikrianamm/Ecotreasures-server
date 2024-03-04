@@ -15,28 +15,42 @@ class AuthController extends Controller
 
     // get a JWT via given credentials
     public function login(){
-        $credentials = request(['email', 'password']);
+        try{
+            $credentials = request(['email', 'password']);
+    
+            if(!$token = auth()->attempt($credentials)){
+                return response()->json(['success' => false, 'message' => 'Unauthorized'], 401);
+            }
+    
+            $response = $this->respondWithToken($token);        
+            $cookie = cookie('data', $response, $response->original['expires_in']);
+    
+            return response()->json([
+                'success' => true,
+                'message' => 'logged in',
+                'data' => [
+                    'token' => $response->original['access_token'],
+                ]
+            ], 200)->withCookie($cookie);
 
-        if(!$token = auth()->attempt($credentials)){
-            return response()->json(['success' => false, 'message' => 'Unauthorized'], 401);
+        }catch(Exception $e){
+            return response()->json([
+                "success" => false,
+                "message" => "Something Error",
+                "errors" => [
+                    'error' => $e->getMessage()
+                ]
+            ]);
         }
-
-        $response = $this->respondWithToken($token);        
-        $cookie = cookie('data', $response, $response->original['expires_in']);
-
-        return response()->json([
-            'success' => true,
-            'message' => 'logged in'
-        ], 201)->withCookie($cookie);
     }
 
     // get authenticated user
-    public function me(){        
-        return response()->json(auth()->user());
+    public function me(){
+        return response()->json(auth()->user());        
     }
 
     // logout (invalidate user)
-    public function logout(){
+    public function logout(){        
         auth()->logout();
         return response()->json(['success' => true, 'message' => 'Successfully logged out']);
     }
