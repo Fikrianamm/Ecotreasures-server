@@ -17,10 +17,10 @@ class ProductController extends Controller
         try{
             $validatedData = $request->validate([
                 'title' => 'required|min:3|max:100',
-                'image' => 'required|min:',
+                'image' => 'required',
                 'price' => 'required',
                 'stock' => 'required',
-                'detail' => 'required'
+                'detail' => 'required|min:3|max:500'
             ]);
     
             $priceInt = intval($validatedData['price']);
