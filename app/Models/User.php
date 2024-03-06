@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Review;
 use App\Models\Products;
 use App\Models\Wishlist;
 use Laravel\Sanctum\HasApiTokens;
@@ -72,5 +73,9 @@ class User extends Authenticatable implements JWTSubject
 
     public function product(){
         return $this->hasMany(Products::class);
+    }
+
+    public function review(){
+        return $this->hasMany(Review::class);
     }
 }

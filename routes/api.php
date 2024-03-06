@@ -50,4 +50,6 @@ Route::group(['middleware' => 'api','prefix' => 'products'], function (){
     Route::get('/seller', [ProductController::class, 'getsellerdata']);
     Route::delete('/delete/{product}', [ProductController::class, 'delete']);
     Route::get('/data', [ProductController::class, 'getalldata']);
+    Route::post('/review/{product}', [ProductController::class, 'review']);
+    Route::get('/review/{product}', [ProductController::class, 'getreviewsdata']);
 });

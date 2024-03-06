@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Exception;
+use App\Models\Review;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -158,6 +159,83 @@ class ProductController extends Controller
             
         }catch(Exception $e){
             return response()->json([
+                "success" => false,
+                "message" => "Something Error",
+                "errors" => [
+                    'error' => $e->getMessage()
+                ]
+            ]);
+        }
+    }
+
+    public function review(Request $request, Product $product){
+        try{
+            $validatedData = $request->validate([
+                'star' => 'required|numeric|regex:/^\d*\.?\d*$/',
+                'comment' => 'min:3|max:150'
+            ]);
+
+            $user = auth()->user();
+            $star = floatval($validatedData['star']);
+
+            Review::create([
+                'user_id' => $user->id,
+                'product_id' => $product->id,
+                'star' => $star,
+                'comment' => $validatedData['comment']
+            ]);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Review Successfully!',                
+            ], 201);
+        }catch(Exception $e){
+            return  response()->json([
+                "success" => false,
+                "message" => "Something Error",
+                "errors" => [
+                    'error' => $e->getMessage()
+                ]
+            ]);
+        }
+    }
+
+    public function getreviewsdata(Product $product){
+        try{
+            $reviews = Review::where('product_id', $product->id)->get();
+            $productData = Product::where('id', $product->id)->first();
+            $data = $reviews->map(function($item){
+                return [
+                    'user' => [
+                        'id' => $item->user->id,
+                        'name' => $item->user->name,
+                        'avatar' => $item->user->image
+                    ],
+                    'review' => [
+                        'star' => $item->star,
+                        'comment' => $item->comment
+                    ],
+                ];
+            });                                          
+    
+            $response = [
+                'success' => true,
+                'message' => 'Data found',
+                'product' => [
+                    'id' => $productData->id,
+                    'title' => $productData->title,
+                    'thumbnail' => $productData->image,
+                    'price' => $productData->price,
+                    'stock' => $productData->stock,
+                    'detail' => $productData->detail
+                ],
+                'data' => $data,
+            ];        
+    
+            return response()->json($response, 200);
+
+        }catch(Exception $e){
+            return  response()->json([
                 "success" => false,
                 "message" => "Something Error",
                 "errors" => [
