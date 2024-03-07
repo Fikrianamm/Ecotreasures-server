@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Cart;
 use App\Models\Review;
 use App\Models\Products;
 use App\Models\Wishlist;
@@ -77,5 +78,9 @@ class User extends Authenticatable implements JWTSubject
 
     public function review(){
         return $this->hasMany(Review::class);
+    }
+
+    public function cart(){
+        return $this->hasMany(Cart::class);
     }
 }

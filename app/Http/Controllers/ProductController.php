@@ -229,7 +229,7 @@ class ProductController extends Controller
                     'stock' => $productData->stock,
                     'detail' => $productData->detail
                 ],
-                'data' => $data,
+                'data' => $data,                
             ];        
     
             return response()->json($response, 200);
