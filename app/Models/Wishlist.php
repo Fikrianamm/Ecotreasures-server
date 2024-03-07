@@ -11,8 +11,7 @@ class Wishlist extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'product_id',
+    protected $fillable = [        
         'user_id',        
     ];
 
@@ -20,7 +19,7 @@ class Wishlist extends Model
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
-    public function product(){
+    public function products(){
         return $this->belongsToMany(Product::class, 'wishlist_items', 'wishlist_id', 'product_id');
     }
 }

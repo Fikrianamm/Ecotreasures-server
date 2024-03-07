@@ -69,7 +69,7 @@ class User extends Authenticatable implements JWTSubject
 
     // Relationship
     public function wishlist(){
-        return $this->hasMany(Wishlist::class);
+        return $this->hasOne(Wishlist::class);
     }
 
     public function product(){
@@ -81,6 +81,6 @@ class User extends Authenticatable implements JWTSubject
     }
 
     public function cart(){
-        return $this->hasMany(Cart::class);
+        return $this->hasOne(Cart::class);
     }
 }
