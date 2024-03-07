@@ -22,11 +22,7 @@ class Product extends Model
         'price',
         'stock',
         'detail'
-    ];
-
-    public function wishlist(){
-        return $this->hasMany(Wishlist::class);
-    }
+    ];    
 
     public function user(){
         return $this->belongsTo(User::class);
@@ -36,7 +32,7 @@ class Product extends Model
         return $this->hasMany(Review::class);
     }
 
-    public function cart(){
-        return $this->hasMany(Cart::class);
+    public function wishlist(){
+        return $this->belongsToMany(Wishlist::class, 'wishlist_items', 'wishlist_id', 'product_id');
     }
 }

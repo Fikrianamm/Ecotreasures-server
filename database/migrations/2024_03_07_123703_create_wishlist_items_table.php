@@ -11,9 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('wishlists', function (Blueprint $table) {
-            $table->id();            
-            $table->foreignId('user_id');
+        Schema::create('wishlist_items', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('wishlist_id');
+            $table->foreignId('product_id');
             $table->timestamps();
         });
     }
@@ -23,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('wishlists');
+        Schema::dropIfExists('wishlist_items');
     }
 };
