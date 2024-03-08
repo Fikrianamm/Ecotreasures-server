@@ -17,14 +17,18 @@ class WishlistController extends Controller
     public function add(Product $product){
         try{
             $user = auth()->user();
-            $wishlist = Wishlist::where('user_id', $user->id)->first();
+
+            function getuserwishlist(){
+                $wishlist = Wishlist::where('user_id', $user->id)->first();
+                return $wishlist;
+            }
             
-            if(!$wishlist){
+            if(!getuserwishlist()){
                 Wishlist::create(['user_id' => $user->id]);
             }                        
 
             WishlistItem::create([
-                'wishlist_id' => Wishlist::where('user_id', $user->id)->first()->id,
+                'wishlist_id' => getuserwishlist()->id,
                 'product_id' => $product->id
             ]);
     
@@ -102,5 +106,18 @@ class WishlistController extends Controller
                 ]
             ]);
         }
+    }
+
+    public function deleteall(){
+        $user = auth()->user();
+        $user_wishlist = Wishlist::where('user_id', $user->id)->first();
+        $getalldata = WishlistItem::where('wishlist_id', $user_wishlist->id)->pluck('id')->toArray();
+        
+        Wishlist::destroy($getalldata);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Successfully deleted all wishlists !'
+        ]);
     }
 }

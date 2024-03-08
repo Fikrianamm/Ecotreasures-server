@@ -41,10 +41,19 @@ Route::group(['middleware' => 'api', 'prefix' => 'wishlists'], function(){
     Route::post('/add/{product}', [WishlistController::class, 'add']);
     Route::get('/show', [WishlistController::class, 'show']);
     Route::delete('/delete/{wishlistitem}', [WishlistController::class, 'delete']);
+    Route::delete('/deleteall', [WishlistController::class, 'deleteall']);
+});
+
+// Cart router
+Route::group(['middleware' => 'api', 'prefix' => 'cart'], function(){
+    Route::post('/add/{product}', [CartController::class, 'add']);
+    Route::get('/show', [CartController::class, 'show']);
+    Route::delete('/delete/{cartietm}', [CartController::class, 'delete']);
+    Route::delete('/deleteall', [CartController::class, 'deleteall']);
 });
 
 // Product router
-Route::group(['middleware' => 'api','prefix' => 'products'], function (){
+Route::group(['middleware' => ['api', 'seller'],'prefix' => 'products'], function (){
     Route::post('/create', [ProductController::class, 'create']);
     Route::post('/update/{product}', [ProductController::class, 'update']);
     Route::get('/seller', [ProductController::class, 'getsellerdata']);

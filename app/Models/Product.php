@@ -35,4 +35,8 @@ class Product extends Model
     public function wishlists(){
         return $this->belongsToMany(Wishlist::class, 'wishlist_items', 'wishlist_id', 'product_id');
     }
+
+    public function cart(){
+        return $this->belongsToMany(Cart::class, 'cart_items', 'product_id', 'cart_id')->withPivot('quantity');
+    }
 }
