@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\WishlistController;
@@ -53,7 +54,7 @@ Route::group(['middleware' => 'api', 'prefix' => 'cart'], function(){
 });
 
 // Product router
-Route::group(['middleware' => ['api', 'seller'],'prefix' => 'products'], function (){
+Route::group(['middleware' => ['api'],'prefix' => 'products'], function (){
     Route::post('/create', [ProductController::class, 'create']);
     Route::post('/update/{product}', [ProductController::class, 'update']);
     Route::get('/seller', [ProductController::class, 'getsellerdata']);
