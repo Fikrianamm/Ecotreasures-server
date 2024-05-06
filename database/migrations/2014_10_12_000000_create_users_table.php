@@ -19,8 +19,8 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('phone')->nullable();
             $table->string('password');
-            $table->string('image')->default('user-icon.png');
-            // $table->rememberToken();
+            $table->string('image')->nullable();
+            // $table->rememberToken();n
             $table->timestamps();
         });
     }

@@ -29,7 +29,12 @@ class UserController extends Controller
                 ], 409);
             }
         
-            User::create($validatedData);
+            User::create([
+                'name' => $validatedData['name'],
+                'email' => $validatedData['email'],
+                'password' => $validatedData['password'],
+                'image' => 'https://ui-avatars.com/api/?name=' . urldecode($validatedData['name'])
+            ]);
             
             return response()->json([
                 'message' => 'Sucessfully Registered',
