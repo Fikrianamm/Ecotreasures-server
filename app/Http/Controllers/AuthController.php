@@ -23,7 +23,7 @@ class AuthController extends Controller
             }
     
             $response = $this->respondWithToken($token);        
-            $cookie = cookie('data', $response, $response->original['expires_in']);
+            $cookie = cookie('data', $response->original['access_token']);
     
             return response()->json([
                 'success' => true,
@@ -46,7 +46,7 @@ class AuthController extends Controller
 
     // get authenticated user
     public function me(){
-        return response()->json(auth()->user());        
+        return response()->json(auth()->user());
     }
 
     // logout (invalidate user)
