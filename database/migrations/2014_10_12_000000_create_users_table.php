@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->boolean('active_status')->default(0);
             $table->string('role')->nullable();
-            $table->string('name');            
+            $table->string('name');           
             $table->string('email')->unique();
-            $table->string('phone')->nullable();
+            $table->string('phone')->nullable();        
             $table->string('password');
             $table->string('image')->nullable();
             // $table->rememberToken();n
